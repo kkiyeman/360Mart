@@ -20,7 +20,7 @@ public class Arrows : MonoBehaviour
     public void OnMouseDown()
     {
 
-        CornerManager.GetInstance().ChangeCorner(idx);
+        StartCoroutine(CornerManager.GetInstance().ChangeCornerr(idx));
 
     }
 }

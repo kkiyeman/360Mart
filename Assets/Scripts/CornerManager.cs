@@ -17,6 +17,8 @@ public class CornerManager : MonoBehaviour
     }
     #endregion
     UIMart uimart;
+    private bool isChanging;
+    private float depthofview;
     private void Awake()
     {
         uimart = FindObjectOfType<UIMart>();
@@ -50,7 +52,30 @@ public class CornerManager : MonoBehaviour
 
     }
 
+    public IEnumerator ChangeCornerr(int idx)
+    {
+        depthofview = 100f;
+        Camera.main.transform.rotation = Quaternion.Euler(0, 90f, 0);
+        for(float i = 100; i>50f; i--)
+        {
+            depthofview = i;
+            Camera.main.fieldOfView = depthofview;
+            yield return new WaitForSeconds(0.005f);
+        }
+        yield return new WaitForSeconds(0.3f);
 
+        Camera.main.fieldOfView = 100f;
+        RenderSettings.skybox = corners[idx];
+        Camera.main.transform.rotation = Quaternion.identity;
+        if (uimart != null)
+            uimart.txtCornerName.text = cornerNames[idx];
+
+        for (int i = 0; i < pointobjects.Length; i++)
+        {
+            pointobjects[i].gameObject.SetActive(false);
+        }
+        pointobjects[idx].gameObject.SetActive(true);
+    }
     public void ChangeCorner(int idx)
     { 
         RenderSettings.skybox = corners[idx];

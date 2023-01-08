@@ -30,20 +30,24 @@ public class Shelf : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().material = transparent;
         }
     }
-    public void OnMouseDown()
+    public void OnMouseUpAsButton()
     {
         if (uikart.isOpen)
             return;
-        if (!uimart.isShelfClicked)
+        else
         {
-            if (!isClicked)
+            if (!uimart.isShelfClicked)
             {
-                gameObject.GetComponent<MeshRenderer>().material = mouseOn;
-                isClicked = true;
-                uimart.isShelfClicked = true;
-                uimart.bgShelf.gameObject.SetActive(true);
+                if (!isClicked)
+                {
+                    gameObject.GetComponent<MeshRenderer>().material = mouseOn;
+                    isClicked = true;
+                    uimart.isShelfClicked = true;
+                    uimart.bgShelf.gameObject.SetActive(true);
+                }
             }
         }
+        
 
     }
     public void OnMouseExit()
