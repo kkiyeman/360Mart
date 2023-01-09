@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class CornerManager : MonoBehaviour
 {
@@ -19,9 +20,16 @@ public class CornerManager : MonoBehaviour
     UIMart uimart;
     private bool isChanging;
     private float depthofview;
+
+    public DepthOfField dof;
+
+    public PostProcessVolume ppv;
+
+
     private void Awake()
     {
         uimart = FindObjectOfType<UIMart>();
+        ppv = FindObjectOfType<PostProcessVolume>();
     }
     [SerializeField] Material[] corners;
     public PointObject[] pointobjects;
@@ -54,21 +62,39 @@ public class CornerManager : MonoBehaviour
 
     public IEnumerator ChangeCornerr(int idx)
     {
-        depthofview = 100f;
-        Camera.main.transform.rotation = Quaternion.Euler(0, 90f, 0);
-        for(float i = 100; i>50f; i--)
+        ppv.profile.TryGetSettings(out dof);
+        dof.aperture.value = 32f;
+        for (int i = 0; i < pointobjects.Length; i++)
         {
-            depthofview = i;
-            Camera.main.fieldOfView = depthofview;
-            yield return new WaitForSeconds(0.005f);
+            pointobjects[i].transform.localScale = new Vector3(0, 0, 0);
         }
-        yield return new WaitForSeconds(0.3f);
 
-        Camera.main.fieldOfView = 100f;
-        RenderSettings.skybox = corners[idx];
-        Camera.main.transform.rotation = Quaternion.identity;
+        while (dof.aperture.value>=0)
+        {
+            dof.aperture.value -= 0.25f;
+            yield return new WaitForSeconds(0.0005f);
+        }
+
         if (uimart != null)
             uimart.txtCornerName.text = cornerNames[idx];
+        RenderSettings.skybox = corners[idx];
+        pointobjects[idx].transform.localScale = new Vector3(1f, 1f, 1f);
+        depthofview = 130f;
+
+        for (float i = 130; i>100f; i--)
+        {  
+            depthofview = i;
+            Camera.main.fieldOfView = depthofview;
+            yield return new WaitForSeconds(0.002f);
+        }
+
+        dof.aperture.value = 0f;
+
+        while (dof.aperture.value <= 32)
+        {
+            dof.aperture.value += 0.25f;
+            yield return new WaitForSeconds(0.0005f);
+        }
 
         for (int i = 0; i < pointobjects.Length; i++)
         {
@@ -76,6 +102,8 @@ public class CornerManager : MonoBehaviour
         }
         pointobjects[idx].gameObject.SetActive(true);
     }
+
+
     public void ChangeCorner(int idx)
     { 
         RenderSettings.skybox = corners[idx];

@@ -7,6 +7,7 @@ public class Arrows : MonoBehaviour
 
     public Material mouseOn;
     public Material mouseDown;
+    public float nextPointEulerAngle;
     public int idx;
 
     public void OnMouseEnter()
@@ -19,8 +20,8 @@ public class Arrows : MonoBehaviour
     }
     public void OnMouseDown()
     {
-
         StartCoroutine(CornerManager.GetInstance().ChangeCornerr(idx));
+        //CornerManager.GetInstance().ChangeCorner(idx);
 
     }
 }

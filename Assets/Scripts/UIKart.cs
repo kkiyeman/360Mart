@@ -22,6 +22,7 @@ public class UIKart : MonoBehaviour
 
     private void OnclickOpenKart()
     {
+
         isOpen = true;
         kartLog.gameObject.SetActive(true);
          

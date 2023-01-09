@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shelf : MonoBehaviour
 {
 
-    public string kind;
+    public string shelfName;
     public GameObject contents;
     public GameObject sort;
     public Material mouseOn;
@@ -30,7 +30,7 @@ public class Shelf : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().material = transparent;
         }
     }
-    public void OnMouseUpAsButton()
+    public void OnMouseUp()
     {
         if (uikart.isOpen)
             return;
@@ -44,6 +44,7 @@ public class Shelf : MonoBehaviour
                     isClicked = true;
                     uimart.isShelfClicked = true;
                     uimart.bgShelf.gameObject.SetActive(true);
+                    uimart.txtShelfName.text = shelfName;
                 }
             }
         }

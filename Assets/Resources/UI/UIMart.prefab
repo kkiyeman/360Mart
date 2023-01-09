@@ -5253,7 +5253,6 @@ MonoBehaviour:
   cornerMenu: {fileID: 7098308274455691995}
   bgShelf: {fileID: 2320085803908805385}
   bgItemList: {fileID: 6526473939037833381}
-  safeZone: {fileID: 5439057004651192736}
   txtCornerName: {fileID: 7834944102363096270}
   txtShelfName: {fileID: 7508912944365454341}
   btnInside: {fileID: 1100527827425148122}
@@ -5569,10 +5568,10 @@ RectTransform:
   m_Father: {fileID: 8296629049366153689}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 0}
+  m_SizeDelta: {x: -80, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5545205921774963016
 CanvasRenderer:
