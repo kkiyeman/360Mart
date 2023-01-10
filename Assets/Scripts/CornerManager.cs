@@ -54,6 +54,7 @@ public class CornerManager : MonoBehaviour
             GameObject pointObject = (GameObject)Instantiate(Pobject);
             PointObject PO = pointObject.GetComponent<PointObject>();
             pointobjects[i] = PO;
+            pointobjects[i].idx = i;
             pointobjects[i].gameObject.SetActive(false);
             pointobjects[i].transform.SetParent(Objectpool.GetInstance().transform);
         }

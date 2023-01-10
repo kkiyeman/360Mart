@@ -1,26 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Shelf : MonoBehaviour
 {
 
-    public string shelfName;
-    public GameObject contents;
-    public GameObject sort;
+    public string shlefNameShowing;
     public Material mouseOn;
     public Material transparent;
     public int idx;
     UIMart uimart;
     UIKart uikart;
     private bool isClicked = false;
-
+    public PointObject curPO;
+    List<List<Item>> shelfData;
+    List<Item> itemData;
+    List<Image> imgItems;
 
     private void Start()
     {
+        curPO = GetComponentInParent<PointObject>();
         uimart = FindObjectOfType<UIMart>();
         uikart = FindObjectOfType<UIKart>();
+        InitItemDataForShelf();
     }
+
+    private void InitItemDataForShelf()
+    {
+        var Itemmanager = ItemManager.GetInstance();
+        shelfData = Itemmanager.shelfList[curPO.idx];
+        itemData = shelfData[idx];  
+    }
+
+    private void SetItemImage()
+    {
+        for(int i = 0; i< itemData.Count; i++)
+        {
+
+        }
+    }
+    
 
     private void Update()
     {
@@ -30,26 +51,28 @@ public class Shelf : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().material = transparent;
         }
     }
-    public void OnMouseUp()
+    public void OnMouseDown()
     {
-        if (uikart.isOpen)
-            return;
-        else
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (!uimart.isShelfClicked)
+            if (uikart.isOpen)
+                return;
+            else
             {
-                if (!isClicked)
+                if (!uimart.isShelfClicked)
                 {
-                    gameObject.GetComponent<MeshRenderer>().material = mouseOn;
-                    isClicked = true;
-                    uimart.isShelfClicked = true;
-                    uimart.bgShelf.gameObject.SetActive(true);
-                    uimart.txtShelfName.text = shelfName;
+                    if (!isClicked)
+                    {
+                        gameObject.GetComponent<MeshRenderer>().material = mouseOn;
+                        isClicked = true;
+                        uimart.isShelfClicked = true;
+                        uimart.bgShelf.gameObject.SetActive(true);
+                        uimart.txtShelfName.text = shlefNameShowing;
+                    }
                 }
             }
-        }
-        
 
+        }
     }
     public void OnMouseExit()
     {

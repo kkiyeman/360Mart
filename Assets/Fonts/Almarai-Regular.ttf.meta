@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 12441bac216e06e4d84f4d5af88aff9d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Almarai
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f079b2a3d7e625d4f97a8b555dcfe657, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
